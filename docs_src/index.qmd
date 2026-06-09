@@ -1,0 +1,62 @@
+---
+title: "TCGA-BRCA Pipeline"
+subtitle: "End-to-end genomic data pipeline: GDC extraction → DuckDB → dbt → survival analysis"
+format:
+  html:
+    theme: cosmo
+    toc: false
+    self-contained: true
+---
+
+## Overview
+
+An end-to-end analytical pipeline for TCGA-BRCA (breast cancer) genomic data. Raw clinical, somatic mutation, and RNA-seq data are downloaded from the NCI GDC, loaded into DuckDB, transformed with dbt, and analyzed with R.
+
+## Pipeline
+
+```
+NCI GDC API
+    ↓  (TCGAbiolinks / R)
+DuckDB  →  raw.clinical
+           raw.maf
+           raw.rna_expression
+    ↓  (dbt)
+       staging.clinical
+       staging.mutations
+       staging.rna_expression
+    ↓
+       marts.tmb
+       marts.survival
+    ↓  (R / Quarto)
+Survival analysis · Mutation landscape · Cox regression
+```
+
+## Explore
+
+::::  {.grid}
+
+::: {.g-col-6}
+### [📊 Analysis](visualization/index.html)
+Survival curves, oncoplot, multivariate Cox regression. Includes KM curves by stage (p < 0.0001), TMB distribution, and gene-level hazard ratios.
+:::
+
+::: {.g-col-6}
+### [🗂 dbt Docs](dbt-docs/index.html)
+Interactive data catalog — lineage DAG, column descriptions, and model documentation for all staging and mart models.
+:::
+
+::::
+
+## Stack
+
+| Layer | Tool |
+|---|---|
+| Extraction | R, TCGAbiolinks, GDC client |
+| Storage | DuckDB |
+| Transformation | dbt-duckdb |
+| Analysis | R, survival, maftools, ggplot2 |
+| Publishing | Quarto, GitHub Pages |
+
+## Source
+
+[github.com/yourusername/tcga-dbt](https://github.com/yourusername/tcga-dbt)

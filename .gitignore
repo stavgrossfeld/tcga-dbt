@@ -15,3 +15,12 @@ extraction/renv/library/
 transform/target/
 transform/dbt_packages/
 transform/logs/
+transform/.venv/
+transform/.user.yml
+
+# R artifacts
+extraction/gdc_manifest.txt
+extraction/gdc_client_configuration.dtt
+extraction/gdc-client
+renv/library/
+renv/staging/

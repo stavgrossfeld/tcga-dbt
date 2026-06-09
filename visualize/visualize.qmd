@@ -1,86 +1,222 @@
+---
+title: "TCGA-BRCA Genomic Analysis"
+subtitle: "Mutation landscape and survival analysis in breast cancer"
+author: "Stav"
+date: today
+output-file: index.html
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    fig-width: 10
+    fig-height: 6
+    self-contained: true
+execute:
+  warning: false
+  message: false
+---
 
-```{r}
+## Overview
 
+This analysis explores somatic mutation patterns and overall survival in the TCGA-BRCA cohort (n = 1,098). Raw clinical, mutation (MAF), and RNA-seq data were downloaded from the NCI GDC and loaded into DuckDB. Staging and mart models were built with dbt before analysis in R.
+
+**Key findings:**
+
+- Stage is the dominant predictor of overall survival (log-rank p < 0.0001)
+- TP53 and PIK3CA are the most frequently mutated genes (34% each), consistent with known BRCA biology
+- TMB does not stratify survival in univariate analysis but shows a modest independent effect in multivariate Cox regression (HR = 1.035, p = 0.013)
+- No individual driver gene mutation significantly predicts survival after adjusting for stage and age
+
+---
+
+```{r setup}
 library(duckdb)
 library(DBI)
 library(dplyr)
 library(tibble)
 library(ggplot2)
-DB_PATH = '../data/tcga_brca.duckdb'
+library(survival)
+library(survminer)
+library(maftools)
+library(broom)
+library(forcats)
+
+DB_PATH <- "../data/tcga_brca.duckdb"
 con <- dbConnect(duckdb(), dbdir = DB_PATH, read_only = TRUE)
 
-# browse tables
-dbListTables(con)
+clinical       <- dbGetQuery(con, "SELECT * FROM staging.clinical") %>% tibble()
+mutations      <- dbGetQuery(con, "SELECT * FROM staging.mutations") %>% tibble()
+patient_summary <- dbGetQuery(con, "SELECT * FROM marts.survival") %>% tibble()
+maf_data       <- dbGetQuery(con, "SELECT * FROM raw.maf")
 
-# quick looks
-clinical <- dbGetQuery(con, "SELECT * FROM staging.clinical") %>% tibble()
+# tertile-based TMB groups
+quantiles <- patient_summary %>%
+    summarise(
+        p33 = quantile(tmb, 0.33, na.rm = TRUE),
+        p67 = quantile(tmb, 0.67, na.rm = TRUE)
+    )
 
-mutations <- dbGetQuery(con, "SELECT * FROM staging.mutations") %>% tibble()
-
-marts_survival <- dbGetQuery(con, "SELECT * FROM marts.survival") %>% tibble()
-
-dbGetQuery(con, "SELECT * FROM raw.maf LIMIT 5")
-dbGetQuery(con, "SELECT * FROM raw.rna_expression LIMIT 5")
-
-```
-
-
-
-```{r}
-clinical %>% ggplot(aes(x = overall_survival_days, fill = 'salmon')) + geom_histogram() + theme_bw()
-```
-
-
-
-```{r}
-library(maftools)
-
-maf_data <- dbGetQuery(con, "SELECT * FROM raw.maf")
+patient_summary <- patient_summary %>%
+    mutate(
+        tmb_group = case_when(
+            tmb <= quantiles$p33 ~ "low",
+            tmb <= quantiles$p67 ~ "medium",
+            tmb > quantiles$p67  ~ "high",
+            TRUE ~ NA_character_
+        ),
+        stage_group = factor(stage_group, levels = c("I", "II", "III", "IV"))
+    )
 
 maf <- read.maf(maf = maf_data)
+```
 
-plotmafSummary(maf, rmOutlier = TRUE, addStat = 'median')
+---
+
+## Mutation Landscape
+
+### MAF Summary
+
+Overview of variant classifications, types, and SNV classes across the cohort.
+
+```{r maf-summary}
+#| fig-height: 8
+plotmafSummary(maf, rmOutlier = TRUE, addStat = "median")
+```
+
+### Oncoplot — Top 20 Mutated Genes
+
+Each column is a patient, each row is a gene. Colors indicate mutation type. TP53 and PIK3CA dominate at 34% each, consistent with published TCGA-BRCA findings. CDH1 (13%) marks the lobular subtype; GATA3 (13%) marks luminal tumors.
+
+```{r oncoplot}
+#| fig-height: 8
 oncoplot(maf = maf, top = 20)
 ```
 
-```{r}
-library(survival)
-library(survminer)
-fit <- survfit(
+---
+
+## Survival Analysis
+
+### Stage vs Overall Survival
+
+Kaplan-Meier curves stratified by AJCC pathologic stage. Stage is a highly significant predictor of overall survival (log-rank p < 0.0001), with Stage IV patients showing rapid early mortality.
+
+```{r km-stage}
+fit_stage <- survfit(
     Surv(overall_survival_days, vital_status) ~ stage_group,
-    data = patient_summary %>% 
-        filter(stage_group %in% c("I", "II", "III", "IV"))
+    data = patient_summary %>% filter(!is.na(stage_group))
 )
 
 ggsurvplot(
-    fit,
-    data = patient_summary,
-    pval = TRUE,
+    fit_stage,
+    data    = patient_summary %>% filter(!is.na(stage_group)),
+    pval    = TRUE,
+    palette = c("#2196F3", "#4CAF50", "#FF9800", "#F44336"),
     legend.title = "Stage",
-    legend.labs = c("I", "II", "III", "IV"),
+    legend.labs  = c("I", "II", "III", "IV"),
     xlab = "Days",
     ylab = "Survival Probability"
 )
 ```
 
+### TMB Distribution
 
-# cox
+Tumor mutation burden is log-normally distributed and centered around 1 mut/Mb — typical for breast cancer, a tumor type with low mutational burden compared to melanoma or lung cancer. The dashed lines show the 5 and 20 mut/Mb thresholds used in literature.
 
-```{r}
-cox <- coxph(
-    Surv(overall_survival_days, vital_status) ~ 
-        stage_group + age_at_diagnosis_years + tmb,
-    data = patient_summary
+```{r tmb-dist}
+patient_summary %>%
+    filter(!is.na(tmb)) %>%
+    ggplot(aes(x = tmb)) +
+    geom_histogram(bins = 50, fill = "steelblue", color = "white") +
+    geom_vline(xintercept = c(5, 20), color = "firebrick",
+               linetype = "dashed", linewidth = 0.8) +
+    scale_x_log10() +
+    labs(
+        x = "TMB (mutations/Mb, log scale)",
+        y = "Count",
+        title = "Tumor Mutation Burden Distribution",
+        caption = "Dashed lines: 5 and 20 mut/Mb thresholds"
+    ) +
+    theme_minimal()
+```
+
+### TMB vs Overall Survival
+
+KM curves stratified by TMB tertile. Unlike stage, TMB does not significantly separate survival curves (log-rank p = 0.46), consistent with the immunologically cold nature of breast cancer.
+
+```{r km-tmb}
+fit_tmb <- survfit(
+    Surv(overall_survival_days, vital_status) ~ tmb_group,
+    data = patient_summary %>% filter(!is.na(tmb_group))
 )
+
+ggsurvplot(
+    fit_tmb,
+    data    = patient_summary %>% filter(!is.na(tmb_group)),
+    pval    = TRUE,
+    palette = c("firebrick", "steelblue", "orange"),
+    legend.title = "TMB Group",
+    legend.labs  = c("High", "Low", "Medium"),
+    xlab = "Days",
+    ylab = "Survival Probability"
+)
+```
+
+### Swimmers Plot — Survival by TMB Group
+
+Each bar is a patient. Length represents follow-up time; color indicates vital status. The distribution of follow-up times is similar across TMB groups, reinforcing the non-significant survival finding.
+
+```{r swimmers}
+#| fig-height: 10
+patient_summary %>%
+    filter(!is.na(tmb_group)) %>%
+    arrange(tmb_group, overall_survival_days) %>%
+    mutate(patient_id = fct_inorder(patient_id)) %>%
+    ggplot(aes(x = overall_survival_days, y = patient_id,
+               fill = factor(vital_status))) +
+    geom_col() +
+    facet_wrap(~ tmb_group, scales = "free_y", ncol = 1) +
+    scale_fill_manual(
+        values = c("0" = "steelblue", "1" = "firebrick"),
+        labels = c("0" = "Alive", "1" = "Deceased")
+    ) +
+    labs(
+        x    = "Overall Survival (days)",
+        y    = NULL,
+        fill = "Status",
+        title = "Swimmer Plot by TMB Group"
+    ) +
+    theme_minimal() +
+    theme(axis.text.y = element_blank())
+```
+
+---
+
+## Multivariate Cox Regression
+
+### Stage + Age + TMB
+
+Adjusting for stage and age, TMB shows a modest but significant independent association with survival (HR = 1.035, p = 0.013). This effect is not detectable in univariate KM analysis due to small effect size and unbalanced group sizes.
+
+```{r cox-tmb}
+cox <- coxph(
+    Surv(overall_survival_days, vital_status) ~
+        stage_group + age_at_diagnosis_years + tmb,
+    data = patient_summary %>% filter(!is.na(stage_group))
+)
+
 summary(cox)
 ```
 
+### Driver Gene Mutations
 
+Binary flags for the six most frequently mutated driver genes were added to the Cox model. After adjusting for stage and age, no individual mutation reaches significance — consistent with these genes being subtype markers rather than independent prognostic factors.
 
-```{r}
-# get top mutated genes per patient as binary flags
+```{r cox-genes}
 gene_matrix <- dbGetQuery(con, "
-    SELECT 
+    SELECT
         patient_id,
         MAX(CASE WHEN gene_symbol = 'TP53'   THEN 1 ELSE 0 END) as tp53,
         MAX(CASE WHEN gene_symbol = 'PIK3CA' THEN 1 ELSE 0 END) as pik3ca,
@@ -94,77 +230,34 @@ gene_matrix <- dbGetQuery(con, "
 
 survival_genes <- patient_summary %>%
     left_join(gene_matrix, by = "patient_id") %>%
-    filter(stage_group %in% c('I','II','III','IV'))
+    filter(!is.na(stage_group)) %>%
+    mutate(across(c(tp53, pik3ca, cdh1, gata3, map3k1, pten), factor))
 
 cox_genes <- coxph(
-    Surv(overall_survival_days, vital_status) ~ 
-        stage_group + age_at_diagnosis_years + tp53 + pik3ca + cdh1 + gata3 + map3k1 + pten,
+    Surv(overall_survival_days, vital_status) ~
+        stage_group + age_at_diagnosis_years +
+        tp53 + pik3ca + cdh1 + gata3 + map3k1 + pten,
     data = survival_genes
 )
 
-summary(cox_genes)
-survival_genes <- survival_genes %>%
-    mutate(stage_group = factor(stage_group, levels = c("I", "II", "III", "IV")))
-
-library(broom)
-
 tidy(cox_genes, exponentiate = TRUE, conf.int = TRUE) %>%
     filter(!grepl("stage|age", term)) %>%
-    ggplot(aes(x = estimate, y = term, xmin = conf.low, xmax = conf.high)) +
+    mutate(term = toupper(term)) %>%
+    ggplot(aes(x = estimate, y = reorder(term, estimate),
+               xmin = conf.low, xmax = conf.high)) +
     geom_pointrange() +
-    geom_vline(xintercept = 1, linetype = "dashed", color = "red") +
-    labs(x = "Hazard Ratio", y = NULL, title = "Gene mutation effect on survival\n(adjusted for stage and age)") +
+    geom_vline(xintercept = 1, linetype = "dashed", color = "firebrick") +
+    labs(
+        x     = "Hazard Ratio (95% CI)",
+        y     = NULL,
+        title = "Driver Gene Mutations and Survival",
+        subtitle = "Adjusted for stage and age — no gene reaches significance"
+    ) +
     theme_minimal()
-
 ```
 
+---
 
-# rna vs dna
-
-```{r}
-
-```
-
-
-```{r}
-patient_summary %>%
-    arrange(tmb_group, overall_survival_days) %>%
-    mutate(patient_id = fct_inorder(patient_id)) %>%
-    ggplot(aes(x = overall_survival_days, y = patient_id, fill = factor(vital_status))) +
-    geom_col() +
-    facet_wrap(~ tmb_group, scales = "free_y", ncol = 1) +
-    scale_fill_manual(
-        values = c("0" = "steelblue", "1" = "firebrick"),
-        labels = c("0" = "Alive", "1" = "Deceased")
-    ) +
-    labs(
-        x = "Overall Survival (days)",
-        y = NULL,
-        fill = "Status"
-    ) +
-    theme_minimal() +
-    theme(axis.text.y = element_blank())
-```
-
-
-
-```{r}
-library(forcats)
-patient_summary %>%
-    arrange(tmb_group, overall_survival_days) %>%
-    mutate(patient_id = fct_inorder(patient_id)) %>%
-    ggplot(aes(x = overall_survival_days, y = patient_id, fill = factor(vital_status))) +
-    geom_col() +
-    facet_wrap(~ tmb_group, scales = "free_y", ncol = 1) +
-    scale_fill_manual(
-        values = c("0" = "steelblue", "1" = "firebrick"),
-        labels = c("0" = "Alive", "1" = "Deceased")
-    ) +
-    labs(
-        x = "Overall Survival (days)",
-        y = NULL,
-        fill = "Status"
-    ) +
-    theme_minimal() +
-    theme(axis.text.y = element_blank())
+```{r teardown, include=FALSE}
+dbDisconnect(con, shutdown = TRUE)
 ```
