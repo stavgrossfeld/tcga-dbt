@@ -4,17 +4,36 @@ The pipeline has three independent stages connected by a shared DuckDB file.
 
 ## Architecture
 
-```
-extraction/          transform/           visualize/
-───────────          ──────────           ──────────
-R + renv             dbt + uv             R + Quarto
-TCGAbiolinks         staging models       ggplot2
-GDC API              mart models          survival
-     │                    │                    │
-     └──────── data/tcga_brca.duckdb ──────────┘
-                    raw schema
-                    staging schema
-                    marts schema
+```mermaid
+flowchart LR
+    subgraph extraction["extraction/  (R + renv)"]
+        A[TCGAbiolinks\nGDC API]
+    end
+
+    subgraph db["data/tcga_brca.duckdb"]
+        direction TB
+        R[raw schema]
+        S[staging schema]
+        M[marts schema]
+        R --> S --> M
+    end
+
+    subgraph transform["transform/  (dbt + uv)"]
+        B[staging models\nmart models]
+    end
+
+    subgraph visualize["visualize/  (R + Quarto)"]
+        C[ggplot2\nsurvival\nmaftools]
+    end
+
+    A -->|writes| R
+    B -->|reads raw\nwrites staging/marts| db
+    C -->|reads staging\n& marts| M
+
+    style extraction fill:#e8f0fe,stroke:#4a6cf7
+    style db fill:#fff8e1,stroke:#f9a825
+    style transform fill:#fce8ff,stroke:#9b4dca
+    style visualize fill:#e8fff0,stroke:#2e7d32
 ```
 
 ## Contract
