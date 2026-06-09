@@ -37,6 +37,7 @@ nav:
     - Mutations: analysis/mutations.md
   - Data Dictionary: data-dictionary.md
   - dbt Docs: dbt-docs.md
+  - About: about.md
 
 plugins:
   - search
