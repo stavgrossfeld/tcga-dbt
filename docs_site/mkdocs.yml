@@ -36,7 +36,7 @@ nav:
     - Survival: analysis/survival.md
     - Mutations: analysis/mutations.md
   - Data Dictionary: data-dictionary.md
-  - dbt Docs: dbt-docs.md
+  - dbt Docs: dbt-catalog.md
   - About: about.md
 
 plugins:

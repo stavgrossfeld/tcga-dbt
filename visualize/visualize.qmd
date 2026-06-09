@@ -290,6 +290,44 @@ tidy(cox_genes, exponentiate = TRUE, conf.int = TRUE) %>%
 
 ---
 
+```{r save-plots, include=FALSE}
+dir.create("../docs_site/docs/assets/img", recursive = TRUE, showWarnings = FALSE)
+
+# KM by stage
+p_stage <- ggsurvplot(
+    fit_stage,
+    data         = patient_summary %>% filter(!is.na(stage_group)),
+    pval         = TRUE,
+    palette      = c("#2196F3", "#4CAF50", "#FF9800", "#F44336"),
+    legend.title = "Stage",
+    legend.labs  = c("I", "II", "III", "IV"),
+    xlab = "Days", ylab = "Survival Probability"
+)
+ggsave("../docs_site/docs/assets/img/km_stage.png",
+       plot = p_stage$plot, width = 7, height = 5, dpi = 150)
+
+# Forest plot (gene mutations)
+p_forest <- tidy(cox_genes, exponentiate = TRUE, conf.int = TRUE) %>%
+    filter(!grepl("stage|age", term)) %>%
+    mutate(term = toupper(term)) %>%
+    ggplot(aes(x = estimate, y = reorder(term, estimate),
+               xmin = conf.low, xmax = conf.high)) +
+    geom_pointrange() +
+    geom_vline(xintercept = 1, linetype = "dashed", color = "firebrick") +
+    labs(x = "Hazard Ratio (95% CI)", y = NULL,
+         title = "Driver Gene Mutations and Survival",
+         subtitle = "Adjusted for stage and age") +
+    theme_minimal()
+ggsave("../docs_site/docs/assets/img/forest_genes.png",
+       plot = p_forest, width = 6, height = 4, dpi = 150)
+
+# Oncoplot — maftools writes directly to device
+png("../docs_site/docs/assets/img/oncoplot.png",
+    width = 900, height = 600, res = 120)
+oncoplot(maf = maf, top = 20)
+dev.off()
+```
+
 ```{r teardown, include=FALSE}
 dbDisconnect(con, shutdown = TRUE)
 ```

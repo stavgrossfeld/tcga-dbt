@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://stavgrossfeld.github.io/tcga-dbt/about/">
+        <link rel="canonical" href="https://stavgrossfeld.github.io/tcga-dbt/dbt-catalog/">
       
       
-        <link rel="prev" href="../dbt-catalog/">
+        <link rel="prev" href="../data-dictionary/">
       
+      
+        <link rel="next" href="../about/">
       
       
         
@@ -25,7 +27,7 @@
     
     
       
-        <title>About - TCGA-BRCA Pipeline</title>
+        <title>dbt Docs - TCGA-BRCA Pipeline</title>
       
     
     
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#about-this-project" class="md-skip">
+        <a href="#dbt-documentation" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              About
+              dbt Docs
             
           </span>
         </div>
@@ -297,9 +299,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../dbt-catalog/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -316,11 +320,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../about/" class="md-tabs__link">
         
   
   
@@ -694,33 +696,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../dbt-catalog/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    dbt Docs
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -740,7 +715,7 @@
   <span class="md-ellipsis">
     
   
-    About
+    dbt Docs
   
 
     
@@ -758,7 +733,7 @@
   <span class="md-ellipsis">
     
   
-    About
+    dbt Docs
   
 
     
@@ -784,10 +759,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-it-is" class="md-nav__link">
+  <a href="#whats-inside" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What it is
+        What's inside
       
     </span>
   </a>
@@ -795,154 +770,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-this-stack" class="md-nav__link">
+  <a href="#models-at-a-glance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why this stack
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Why this stack">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#r-tcgabiolinks-for-extraction" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        R + TCGAbiolinks for extraction
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#duckdb-as-the-storage-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DuckDB as the storage layer
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dbt-for-transformation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        dbt for transformation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quarto-for-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quarto for analysis
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The data
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-the-analysis-shows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What the analysis shows
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="What the analysis shows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#stage-is-the-dominant-prognostic-factor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stage is the dominant prognostic factor
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tmb-does-not-predict-survival-in-univariate-analysis-and-thats-correct" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TMB does not predict survival in univariate analysis — and that's correct
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mutation-landscape" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mutation landscape
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#no-individual-driver-gene-reaches-significance-in-cox-regression" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No individual driver gene reaches significance in Cox regression
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-could-be-extended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What could be extended
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reproducibility" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reproducibility
+        Models at a glance
       
     </span>
   </a>
@@ -953,6 +784,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -984,10 +842,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-it-is" class="md-nav__link">
+  <a href="#whats-inside" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What it is
+        What's inside
       
     </span>
   </a>
@@ -995,154 +853,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-this-stack" class="md-nav__link">
+  <a href="#models-at-a-glance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why this stack
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Why this stack">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#r-tcgabiolinks-for-extraction" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        R + TCGAbiolinks for extraction
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#duckdb-as-the-storage-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DuckDB as the storage layer
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dbt-for-transformation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        dbt for transformation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quarto-for-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quarto for analysis
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The data
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-the-analysis-shows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What the analysis shows
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="What the analysis shows">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#stage-is-the-dominant-prognostic-factor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stage is the dominant prognostic factor
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tmb-does-not-predict-survival-in-univariate-analysis-and-thats-correct" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TMB does not predict survival in univariate analysis — and that's correct
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mutation-landscape" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mutation landscape
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#no-individual-driver-gene-reaches-significance-in-cox-regression" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No individual driver gene reaches significance in Cox regression
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-could-be-extended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What could be extended
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reproducibility" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reproducibility
+        Models at a glance
       
     </span>
   </a>
@@ -1169,86 +883,35 @@
   
 
 
-<h1 id="about-this-project">About This Project</h1>
-<h2 id="what-it-is">What it is</h2>
-<p>This project builds an end-to-end analytical pipeline for the TCGA-BRCA dataset — 1,098 breast cancer patients with matched clinical, somatic mutation, and RNA-seq data from the NCI Genomic Data Commons. Raw genomic data flows through a structured transformation layer into a set of analysis-ready tables, then into a fully reproducible statistical analysis covering survival, mutation landscape, and multivariate Cox regression.</p>
-<p>The goal was to bridge two worlds that rarely talk to each other: <strong>bioinformatics</strong> (where the data lives) and <strong>data engineering</strong> (where the infrastructure lives). Most genomic analyses are done entirely in R scripts with no transformation layer, no schema contracts, and no documentation. This project applies modern data engineering practices — dbt, DuckDB, schema versioning, column-level tests — to a domain that has historically ignored them.</p>
+<h1 id="dbt-documentation">dbt Documentation</h1>
+<p>The full dbt docs site includes the lineage DAG, column-level descriptions, and test results for all staging and mart models.</p>
+<p><a class="md-button md-button--primary" href="https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html" target="_blank"><strong>→ Open dbt Docs</strong></a></p>
 <hr />
-<h2 id="why-this-stack">Why this stack</h2>
-<h3 id="r-tcgabiolinks-for-extraction">R + TCGAbiolinks for extraction</h3>
-<p>The NCI GDC has its own R client (<code>TCGAbiolinks</code>) that handles authentication, file discovery, and download. There is no mature Python equivalent for the full clinical + MAF + RNA-seq workflow. R was the right tool.</p>
-<h3 id="duckdb-as-the-storage-layer">DuckDB as the storage layer</h3>
-<p>Most bioinformatics pipelines write intermediate results to CSV or RDS files and pass them between scripts by path. This creates implicit dependencies, no schema enforcement, and no queryability. DuckDB gives us:</p>
+<h2 id="whats-inside">What's inside</h2>
 <ul>
-<li>A single file that holds all three data types (clinical, mutations, expression)</li>
-<li>SQL queryability from both R (<code>DBI</code>) and Python (<code>dbt-duckdb</code>)</li>
-<li>Fast analytical queries on columnar data without a server</li>
-<li>A clean raw → staging → marts schema separation</li>
+<li><strong>Lineage graph</strong> — visual DAG from raw sources through staging to marts</li>
+<li><strong>Model descriptions</strong> — purpose and SQL for each model</li>
+<li><strong>Column descriptions</strong> — type, description, and tests for every column</li>
+<li><strong>Test results</strong> — not_null and unique constraint coverage</li>
 </ul>
-<p>The tradeoff is that DuckDB has a single-writer lock — you can't have R and dbt connected simultaneously. In practice this is fine: extraction writes, then dbt transforms, then R reads.</p>
-<h3 id="dbt-for-transformation">dbt for transformation</h3>
-<p>Putting transformation logic in dbt instead of R means:</p>
-<ul>
-<li>Every transform is documented and version-controlled as SQL</li>
-<li>Column lineage is tracked — you can see exactly which raw column produced which mart column</li>
-<li>Tests (<code>not_null</code>, <code>unique</code>) run automatically and fail loudly</li>
-<li>The DAG is visual and explorable</li>
-</ul>
-<p>The alternative — doing all cleaning in R before analysis — mixes concerns. dbt keeps "what does the data look like" separate from "what does the analysis say."</p>
-<h3 id="quarto-for-analysis">Quarto for analysis</h3>
-<p>Quarto renders R code + prose + plots into a self-contained HTML file that can be hosted as a static page. The analysis is fully reproducible: clone the repo, run the pipeline, re-render the QMD, get the same output. No Jupyter server, no Shiny server, no cloud compute needed.</p>
-<hr />
-<h2 id="the-data">The data</h2>
-<p>TCGA-BRCA is one of the most comprehensively characterized cancer cohorts in existence:</p>
-<ul>
-<li><strong>1,098 patients</strong> with primary breast adenocarcinoma</li>
-<li><strong>Clinical data</strong>: staging (AJCC I–IV), age, vital status, follow-up time, histology, laterality</li>
-<li><strong>Somatic mutations</strong>: ~90,000 variants from whole-exome sequencing, called by MuTect2, stored in MAF format</li>
-<li><strong>RNA-seq</strong>: STAR-Counts gene expression for ~60,000 genes per sample</li>
-</ul>
-<p>The data is open access (de-identified) and freely available from the GDC. No IRB required.</p>
-<hr />
-<h2 id="what-the-analysis-shows">What the analysis shows</h2>
-<h3 id="stage-is-the-dominant-prognostic-factor">Stage is the dominant prognostic factor</h3>
-<p>Kaplan-Meier curves stratified by AJCC stage show highly significant separation (log-rank p &lt; 0.0001). Stage IV patients have a median overall survival of ~1,500 days vs. Stage I/II patients who largely do not reach median survival within the follow-up window — meaning more than half are still alive at last contact.</p>
-<p><img alt="Kaplan-Meier survival curves by AJCC stage" src="../assets/img/km_stage.png" /></p>
-<p>In multivariate Cox regression, Stage IV carries a hazard ratio of ~10x vs Stage I after adjusting for age and TMB. This is expected and validates the pipeline — if stage didn't predict survival in BRCA, something would be wrong with the data.</p>
-<h3 id="tmb-does-not-predict-survival-in-univariate-analysis-and-thats-correct">TMB does not predict survival in univariate analysis — and that's correct</h3>
-<p>Tumor mutation burden (TMB) is the count of coding somatic mutations per megabase of exome. In cancers like melanoma and lung adenocarcinoma, high TMB predicts better response to immunotherapy and better survival. The logic: more mutations → more neoantigens → more immune recognition.</p>
-<p>BRCA is <strong>immunologically cold</strong>. The tumor microenvironment is poorly infiltrated by cytotoxic T cells, and PD-L1 expression is low except in triple-negative subtype. TMB doesn't trigger immune clearance the way it does in hot tumors. The univariate log-rank p-value of 0.46 is biologically correct — this is a negative result that tells us something real.</p>
-<p>In multivariate Cox regression, TMB does show a small independent effect (HR ~1.035 per unit, p = 0.013) after adjusting for stage and age. This is consistent with the literature: TMB has a subtle prognostic signal in BRCA that only emerges when the dominant stage effect is controlled for.</p>
-<h3 id="mutation-landscape">Mutation landscape</h3>
-<p>The top mutated genes — TP53 (34%), PIK3CA (34%), CDH1 (13%), GATA3 (13%) — are exactly what the TCGA BRCA paper reported in 2012. This validates the MAF processing pipeline.</p>
-<p><img alt="Oncoplot — top 20 mutated genes across 1,098 patients" src="../assets/img/oncoplot.png" /></p>
-<p>The SNV class distribution is dominated by C&gt;T transitions, consistent with <strong>APOBEC mutagenesis</strong> (cytidine deaminase activity, a known mutational process in BRCA) and age-related deamination. This is visible in the MAF summary plot.</p>
-<p>BRCA has low median TMB (~1 mut/Mb), consistent with it being a non-hypermutated cancer type. For comparison, melanoma median is ~10–15 mut/Mb and microsatellite-unstable colorectal cancer can exceed 100 mut/Mb.</p>
-<h3 id="no-individual-driver-gene-reaches-significance-in-cox-regression">No individual driver gene reaches significance in Cox regression</h3>
-<p>After adjusting for stage and age, no single driver gene mutation (TP53, PIK3CA, CDH1, GATA3) reaches significance as an independent predictor of survival.</p>
-<p><img alt="Forest plot — driver gene hazard ratios adjusted for stage and age" src="../assets/img/forest_genes.png" /> This is not surprising — these genes are <strong>subtype markers</strong> rather than independent prognostic factors. TP53 mutation marks the basal-like subtype, which has poor prognosis, but that prognosis is largely captured by stage. In a multivariate model with stage already in it, the additional TP53 signal shrinks.</p>
-<hr />
-<h2 id="what-could-be-extended">What could be extended</h2>
-<ul>
-<li><strong>Molecular subtyping</strong>: PAM50 subtype classification from RNA-seq (Luminal A/B, HER2-enriched, Basal-like, Normal-like) would likely explain more survival variance than TMB</li>
-<li><strong>Mutational signatures</strong>: SBS signature decomposition using <code>MutationalPatterns</code> would quantify APOBEC vs. BRCA1/2-deficiency vs. aging contributions per patient</li>
-<li><strong>Bayesian survival model</strong>: <code>rstanarm</code> Cox regression with weakly informative priors and posterior credible intervals, rather than frequentist p-values</li>
-<li><strong>Multi-cancer</strong>: Parameterize the extraction script by GDC project ID and run across all 33 TCGA cancer types, partitioning by cancer type in DuckDB</li>
-<li><strong>Differential expression</strong>: DESeq2 on the RNA-seq data stratified by TP53 mutation status or stage</li>
-</ul>
-<hr />
-<h2 id="reproducibility">Reproducibility</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. Extract</span>
-<span class="nb">cd</span><span class="w"> </span>extraction<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>Rscript<span class="w"> </span>extract_tcga.R
+<h2 id="models-at-a-glance">Models at a glance</h2>
+<pre class="mermaid"><code>flowchart TD
+    A[raw.clinical] --&gt; B[staging.clinical]
+    C[raw.maf] --&gt; D[staging.mutations]
+    E[raw.rna_expression] --&gt; F[staging.rna_expression]
+    B --&gt; G[marts.tmb]
+    D --&gt; G
+    B --&gt; H[marts.survival]
+    G --&gt; H
 
-<span class="c1"># 2. Transform</span>
-<span class="nb">cd</span><span class="w"> </span>transform<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dbt<span class="w"> </span>run<span class="w"> </span>--profiles-dir<span class="w"> </span>.
-
-<span class="c1"># 3. Analyze</span>
-quarto<span class="w"> </span>render<span class="w"> </span>visualize/visualize.qmd
-
-<span class="c1"># 4. Build docs</span>
-make<span class="w"> </span>all
-</code></pre></div>
-<p>All R packages are pinned via <code>renv.lock</code>. The Python environment is pinned via <code>uv.lock</code>. The DuckDB file is the only artifact not in version control (it's ~500MB). Everything else needed to reproduce the analysis is in the repo.</p>
+    style A fill:#e8f0fe,stroke:#4a6cf7
+    style C fill:#e8f0fe,stroke:#4a6cf7
+    style E fill:#e8f0fe,stroke:#4a6cf7
+    style B fill:#fce8ff,stroke:#9b4dca
+    style D fill:#fce8ff,stroke:#9b4dca
+    style F fill:#fce8ff,stroke:#9b4dca
+    style G fill:#e8fff0,stroke:#2e7d32
+    style H fill:#e8fff0,stroke:#2e7d32</code></pre>
 
 
 

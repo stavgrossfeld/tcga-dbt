@@ -61,6 +61,8 @@ The data is open access (de-identified) and freely available from the GDC. No IR
 
 Kaplan-Meier curves stratified by AJCC stage show highly significant separation (log-rank p < 0.0001). Stage IV patients have a median overall survival of ~1,500 days vs. Stage I/II patients who largely do not reach median survival within the follow-up window — meaning more than half are still alive at last contact.
 
+![Kaplan-Meier survival curves by AJCC stage](assets/img/km_stage.png)
+
 In multivariate Cox regression, Stage IV carries a hazard ratio of ~10x vs Stage I after adjusting for age and TMB. This is expected and validates the pipeline — if stage didn't predict survival in BRCA, something would be wrong with the data.
 
 ### TMB does not predict survival in univariate analysis — and that's correct
@@ -75,13 +77,17 @@ In multivariate Cox regression, TMB does show a small independent effect (HR ~1.
 
 The top mutated genes — TP53 (34%), PIK3CA (34%), CDH1 (13%), GATA3 (13%) — are exactly what the TCGA BRCA paper reported in 2012. This validates the MAF processing pipeline.
 
+![Oncoplot — top 20 mutated genes across 1,098 patients](assets/img/oncoplot.png)
+
 The SNV class distribution is dominated by C>T transitions, consistent with **APOBEC mutagenesis** (cytidine deaminase activity, a known mutational process in BRCA) and age-related deamination. This is visible in the MAF summary plot.
 
 BRCA has low median TMB (~1 mut/Mb), consistent with it being a non-hypermutated cancer type. For comparison, melanoma median is ~10–15 mut/Mb and microsatellite-unstable colorectal cancer can exceed 100 mut/Mb.
 
 ### No individual driver gene reaches significance in Cox regression
 
-After adjusting for stage and age, no single driver gene mutation (TP53, PIK3CA, CDH1, GATA3) reaches significance as an independent predictor of survival. This is not surprising — these genes are **subtype markers** rather than independent prognostic factors. TP53 mutation marks the basal-like subtype, which has poor prognosis, but that prognosis is largely captured by stage. In a multivariate model with stage already in it, the additional TP53 signal shrinks.
+After adjusting for stage and age, no single driver gene mutation (TP53, PIK3CA, CDH1, GATA3) reaches significance as an independent predictor of survival.
+
+![Forest plot — driver gene hazard ratios adjusted for stage and age](assets/img/forest_genes.png) This is not surprising — these genes are **subtype markers** rather than independent prognostic factors. TP53 mutation marks the basal-like subtype, which has poor prognosis, but that prognosis is largely captured by stage. In a multivariate model with stage already in it, the additional TP53 signal shrinks.
 
 ---
 
