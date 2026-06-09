@@ -44,8 +44,15 @@ plugins:
 markdown_extensions:
   - admonition
   - pymdownx.highlight
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - tables
   - attr_list
+
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js

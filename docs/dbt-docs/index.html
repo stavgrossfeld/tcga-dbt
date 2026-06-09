@@ -847,20 +847,23 @@
 <li><strong>Test results</strong> — not_null and unique constraint coverage</li>
 </ul>
 <h2 id="models-at-a-glance">Models at a glance</h2>
-<div class="highlight"><pre><span></span><code>raw.clinical          raw.maf          raw.rna_expression
-      │                  │                      │
-      ▼                  ▼                      ▼
-staging.clinical   staging.mutations   staging.rna_expression
-      │                  │
-      └────────┬──────────┘
-               ▼
-           marts.tmb
-               │
-      ┌────────┘
-      │
-      ▼
-  marts.survival
-</code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    A[raw.clinical] --&gt; B[staging.clinical]
+    C[raw.maf] --&gt; D[staging.mutations]
+    E[raw.rna_expression] --&gt; F[staging.rna_expression]
+    B --&gt; G[marts.tmb]
+    D --&gt; G
+    B --&gt; H[marts.survival]
+    G --&gt; H
+
+    style A fill:#e8f0fe,stroke:#4a6cf7
+    style C fill:#e8f0fe,stroke:#4a6cf7
+    style E fill:#e8f0fe,stroke:#4a6cf7
+    style B fill:#fce8ff,stroke:#9b4dca
+    style D fill:#fce8ff,stroke:#9b4dca
+    style F fill:#fce8ff,stroke:#9b4dca
+    style G fill:#e8fff0,stroke:#2e7d32
+    style H fill:#e8fff0,stroke:#2e7d32</code></pre>
 
 
 
@@ -920,6 +923,8 @@ staging.clinical   staging.mutations   staging.rna_expression
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>
