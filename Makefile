@@ -7,6 +7,7 @@ all: landing analysis dbt-docs
 landing:
 	cd docs_src && quarto render index.qmd
 	cp docs_src/index.html $(DOCS_DIR)/
+	cp docs_src/styles.css $(DOCS_DIR)/
 
 analysis:
 	quarto render visualize/visualize.qmd

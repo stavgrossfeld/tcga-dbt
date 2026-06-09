@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/">
+        <link rel="canonical" href="https://stavgrossfeld.github.io/tcga-dbt/data-dictionary/">
       
       
-        <link rel="prev" href="../data-dictionary/">
+        <link rel="prev" href="../analysis/mutations/">
       
+      
+        <link rel="next" href="../dbt-docs/">
       
       
         
@@ -25,7 +27,7 @@
     
     
       
-        <title>dbt Docs - TCGA-BRCA Pipeline</title>
+        <title>Data Dictionary - TCGA-BRCA Pipeline</title>
       
     
     
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dbt-documentation" class="md-skip">
+        <a href="#data-dictionary" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              dbt Docs
+              Data Dictionary
             
           </span>
         </div>
@@ -278,9 +280,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../data-dictionary/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -297,11 +301,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../dbt-docs/" class="md-tabs__link">
         
   
   
@@ -648,33 +650,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../data-dictionary/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Data Dictionary
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -694,7 +669,7 @@
   <span class="md-ellipsis">
     
   
-    dbt Docs
+    Data Dictionary
   
 
     
@@ -712,7 +687,7 @@
   <span class="md-ellipsis">
     
   
-    dbt Docs
+    Data Dictionary
   
 
     
@@ -738,24 +713,91 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#whats-inside" class="md-nav__link">
+  <a href="#staging-models" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's inside
+        Staging Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Staging Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stagingclinical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        staging.clinical
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#models-at-a-glance" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#stagingmutations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Models at a glance
+        staging.mutations
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stagingrna_expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        staging.rna_expression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mart-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mart Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mart Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#martstmb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts.tmb
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#martssurvival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts.survival
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -763,6 +805,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dbt-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dbt Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -794,24 +863,91 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#whats-inside" class="md-nav__link">
+  <a href="#staging-models" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's inside
+        Staging Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Staging Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stagingclinical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        staging.clinical
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#models-at-a-glance" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#stagingmutations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Models at a glance
+        staging.mutations
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stagingrna_expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        staging.rna_expression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mart-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mart Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mart Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#martstmb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts.tmb
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#martssurvival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts.survival
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -835,32 +971,310 @@
   
 
 
-<h1 id="dbt-documentation">dbt Documentation</h1>
-<p>The full dbt docs site includes the lineage DAG, column-level descriptions, and test results for all staging and mart models.</p>
-<p><a class="md-button md-button--primary" href="https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html"><strong>→ Open dbt Docs</strong></a></p>
+<h1 id="data-dictionary">Data Dictionary</h1>
+<h2 id="staging-models">Staging Models</h2>
+<h3 id="stagingclinical"><code>staging.clinical</code></h3>
+<p>Cleaned clinical records for all 1,098 TCGA-BRCA patients.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>patient_id</code></td>
+<td>VARCHAR</td>
+<td>TCGA patient barcode (e.g. TCGA-A7-A0DC)</td>
+</tr>
+<tr>
+<td><code>stage</code></td>
+<td>VARCHAR</td>
+<td>Raw AJCC pathologic stage string (e.g. Stage IIA)</td>
+</tr>
+<tr>
+<td><code>stage_group</code></td>
+<td>VARCHAR</td>
+<td>Extracted stage roman numeral (I, II, III, IV)</td>
+</tr>
+<tr>
+<td><code>age_at_diagnosis_years</code></td>
+<td>DOUBLE</td>
+<td>Age at diagnosis in years (days / 365.25)</td>
+</tr>
+<tr>
+<td><code>year_of_diagnosis</code></td>
+<td>INTEGER</td>
+<td>Calendar year of diagnosis</td>
+</tr>
+<tr>
+<td><code>is_deceased</code></td>
+<td>BOOLEAN</td>
+<td>True if patient died during follow-up</td>
+</tr>
+<tr>
+<td><code>overall_survival_days</code></td>
+<td>INTEGER</td>
+<td>Days to death or last follow-up</td>
+</tr>
+<tr>
+<td><code>gender</code></td>
+<td>VARCHAR</td>
+<td>Patient gender</td>
+</tr>
+<tr>
+<td><code>race</code></td>
+<td>VARCHAR</td>
+<td>Patient race (NULL where 'not reported')</td>
+</tr>
+<tr>
+<td><code>ethnicity</code></td>
+<td>VARCHAR</td>
+<td>Patient ethnicity (NULL where 'not reported')</td>
+</tr>
+<tr>
+<td><code>primary_diagnosis</code></td>
+<td>VARCHAR</td>
+<td>Histology description</td>
+</tr>
+<tr>
+<td><code>laterality</code></td>
+<td>VARCHAR</td>
+<td>Tumor laterality (Left/Right)</td>
+</tr>
+<tr>
+<td><code>had_prior_malignancy</code></td>
+<td>BOOLEAN</td>
+<td>True if prior malignancy</td>
+</tr>
+<tr>
+<td><code>had_prior_treatment</code></td>
+<td>BOOLEAN</td>
+<td>True if prior treatment</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stagingmutations"><code>staging.mutations</code></h3>
+<p>Somatic mutations from TCGA-BRCA MAF files. 140 raw columns reduced to analytically relevant subset.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>patient_id</code></td>
+<td>VARCHAR</td>
+<td>TCGA patient barcode (first 12 chars of sample barcode)</td>
+</tr>
+<tr>
+<td><code>sample_barcode</code></td>
+<td>VARCHAR</td>
+<td>Full tumor sample barcode</td>
+</tr>
+<tr>
+<td><code>gene_symbol</code></td>
+<td>VARCHAR</td>
+<td>HGNC gene symbol (e.g. TP53, PIK3CA)</td>
+</tr>
+<tr>
+<td><code>chromosome</code></td>
+<td>VARCHAR</td>
+<td>Chromosome</td>
+</tr>
+<tr>
+<td><code>start_pos</code></td>
+<td>INTEGER</td>
+<td>Genomic start position (GRCh38)</td>
+</tr>
+<tr>
+<td><code>end_pos</code></td>
+<td>INTEGER</td>
+<td>Genomic end position (GRCh38)</td>
+</tr>
+<tr>
+<td><code>variant_classification</code></td>
+<td>VARCHAR</td>
+<td>Mutation consequence (e.g. Missense_Mutation)</td>
+</tr>
+<tr>
+<td><code>variant_type</code></td>
+<td>VARCHAR</td>
+<td>SNP, INS, or DEL</td>
+</tr>
+<tr>
+<td><code>ref_allele</code></td>
+<td>VARCHAR</td>
+<td>Reference allele</td>
+</tr>
+<tr>
+<td><code>alt_allele</code></td>
+<td>VARCHAR</td>
+<td>Alternate allele</td>
+</tr>
+<tr>
+<td><code>tumor_depth</code></td>
+<td>INTEGER</td>
+<td>Total read depth in tumor</td>
+</tr>
+<tr>
+<td><code>tumor_alt_count</code></td>
+<td>INTEGER</td>
+<td>Alternate allele read count</td>
+</tr>
+<tr>
+<td><code>vaf</code></td>
+<td>DOUBLE</td>
+<td>Variant allele frequency (alt / depth)</td>
+</tr>
+<tr>
+<td><code>impact</code></td>
+<td>VARCHAR</td>
+<td>VEP impact: HIGH, MODERATE, LOW, MODIFIER</td>
+</tr>
+<tr>
+<td><code>impact_rank</code></td>
+<td>INTEGER</td>
+<td>Numeric rank: HIGH=3, MODERATE=2, LOW=1, MODIFIER=0</td>
+</tr>
+<tr>
+<td><code>is_pass</code></td>
+<td>BOOLEAN</td>
+<td>True if variant passed all GDC filters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stagingrna_expression"><code>staging.rna_expression</code></h3>
+<p>Long-format STAR-Counts RNA-seq data. One row per gene per sample.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gene_id</code></td>
+<td>VARCHAR</td>
+<td>Ensembl gene ID, version stripped (e.g. ENSG00000000003)</td>
+</tr>
+<tr>
+<td><code>sample_barcode</code></td>
+<td>VARCHAR</td>
+<td>Full sample barcode</td>
+</tr>
+<tr>
+<td><code>patient_id</code></td>
+<td>VARCHAR</td>
+<td>TCGA patient barcode</td>
+</tr>
+<tr>
+<td><code>raw_count</code></td>
+<td>INTEGER</td>
+<td>Unstranded read count</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="whats-inside">What's inside</h2>
-<ul>
-<li><strong>Lineage graph</strong> — visual DAG from raw sources through staging to marts</li>
-<li><strong>Model descriptions</strong> — purpose and SQL for each model</li>
-<li><strong>Column descriptions</strong> — type, description, and tests for every column</li>
-<li><strong>Test results</strong> — not_null and unique constraint coverage</li>
-</ul>
-<h2 id="models-at-a-glance">Models at a glance</h2>
-<div class="highlight"><pre><span></span><code>raw.clinical          raw.maf          raw.rna_expression
-      │                  │                      │
-      ▼                  ▼                      ▼
-staging.clinical   staging.mutations   staging.rna_expression
-      │                  │
-      └────────┬──────────┘
-               ▼
-           marts.tmb
-               │
-      ┌────────┘
-      │
-      ▼
-  marts.survival
-</code></pre></div>
+<h2 id="mart-models">Mart Models</h2>
+<h3 id="martstmb"><code>marts.tmb</code></h3>
+<p>Tumor mutation burden per patient.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>patient_id</code></td>
+<td>VARCHAR</td>
+<td>TCGA patient barcode</td>
+</tr>
+<tr>
+<td><code>coding_mutation_count</code></td>
+<td>INTEGER</td>
+<td>Coding mutations passing all filters</td>
+</tr>
+<tr>
+<td><code>tmb</code></td>
+<td>DOUBLE</td>
+<td>TMB in mut/Mb (coding_mutation_count / 38.0)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="martssurvival"><code>marts.survival</code></h3>
+<p>Patient-level survival table joining clinical and TMB. Primary mart for analysis.</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>patient_id</code></td>
+<td>VARCHAR</td>
+<td>TCGA patient barcode</td>
+</tr>
+<tr>
+<td><code>overall_survival_days</code></td>
+<td>INTEGER</td>
+<td>Days to death or last follow-up</td>
+</tr>
+<tr>
+<td><code>vital_status</code></td>
+<td>INTEGER</td>
+<td>Event indicator: 1=deceased, 0=censored</td>
+</tr>
+<tr>
+<td><code>stage_group</code></td>
+<td>VARCHAR</td>
+<td>AJCC stage (I, II, III, IV)</td>
+</tr>
+<tr>
+<td><code>age_at_diagnosis_years</code></td>
+<td>DOUBLE</td>
+<td>Age at diagnosis in years</td>
+</tr>
+<tr>
+<td><code>primary_diagnosis</code></td>
+<td>VARCHAR</td>
+<td>Histology</td>
+</tr>
+<tr>
+<td><code>had_prior_treatment</code></td>
+<td>BOOLEAN</td>
+<td>Prior treatment flag</td>
+</tr>
+<tr>
+<td><code>coding_mutation_count</code></td>
+<td>INTEGER</td>
+<td>From marts.tmb</td>
+</tr>
+<tr>
+<td><code>tmb</code></td>
+<td>DOUBLE</td>
+<td>Tumor mutation burden (mut/Mb)</td>
+</tr>
+<tr>
+<td><code>tmb_group</code></td>
+<td>VARCHAR</td>
+<td>TMB category: low/medium/high</td>
+</tr>
+</tbody>
+</table>
 
 
 

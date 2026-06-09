@@ -10,29 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/">
+        <link rel="canonical" href="https://stavgrossfeld.github.io/tcga-dbt/analysis/mutations/">
       
       
-        <link rel="prev" href="../data-dictionary/">
+        <link rel="prev" href="../survival/">
       
+      
+        <link rel="next" href="../../data-dictionary/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>dbt Docs - TCGA-BRCA Pipeline</title>
+        <title>Mutations - TCGA-BRCA Pipeline</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +53,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dbt-documentation" class="md-skip">
+        <a href="#mutation-landscape" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +92,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="TCGA-BRCA Pipeline" class="md-header__button md-logo" aria-label="TCGA-BRCA Pipeline" data-md-component="logo">
+    <a href="../.." title="TCGA-BRCA Pipeline" class="md-header__button md-logo" aria-label="TCGA-BRCA Pipeline" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              dbt Docs
+              Mutations
             
           </span>
         </div>
@@ -221,7 +223,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -242,7 +244,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../pipeline/overview/" class="md-tabs__link">
+        <a href="../../pipeline/overview/" class="md-tabs__link">
           
   
   
@@ -258,11 +260,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../analysis/survival/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../survival/" class="md-tabs__link">
           
   
   
@@ -280,7 +284,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../data-dictionary/" class="md-tabs__link">
+      <a href="../../data-dictionary/" class="md-tabs__link">
         
   
   
@@ -297,11 +301,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../dbt-docs/" class="md-tabs__link">
         
   
   
@@ -336,7 +338,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="TCGA-BRCA Pipeline" class="md-nav__button md-logo" aria-label="TCGA-BRCA Pipeline" data-md-component="logo">
+    <a href="../.." title="TCGA-BRCA Pipeline" class="md-nav__button md-logo" aria-label="TCGA-BRCA Pipeline" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -366,7 +368,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -445,7 +447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/overview/" class="md-nav__link">
+      <a href="../../pipeline/overview/" class="md-nav__link">
         
   
   
@@ -473,7 +475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/extraction/" class="md-nav__link">
+      <a href="../../pipeline/extraction/" class="md-nav__link">
         
   
   
@@ -501,7 +503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipeline/transform/" class="md-nav__link">
+      <a href="../../pipeline/transform/" class="md-nav__link">
         
   
   
@@ -533,26 +535,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -570,7 +577,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -588,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../analysis/survival/" class="md-nav__link">
+      <a href="../survival/" class="md-nav__link">
         
   
   
@@ -613,68 +620,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../analysis/mutations/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Mutations
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../data-dictionary/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Data Dictionary
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -694,7 +639,7 @@
   <span class="md-ellipsis">
     
   
-    dbt Docs
+    Mutations
   
 
     
@@ -712,7 +657,7 @@
   <span class="md-ellipsis">
     
   
-    dbt Docs
+    Mutations
   
 
     
@@ -738,10 +683,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#whats-inside" class="md-nav__link">
+  <a href="#top-mutated-genes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's inside
+        Top Mutated Genes
       
     </span>
   </a>
@@ -749,10 +694,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#models-at-a-glance" class="md-nav__link">
+  <a href="#snv-class" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Models at a glance
+        SNV Class
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tumor-mutation-burden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tumor Mutation Burden
       
     </span>
   </a>
@@ -763,6 +719,68 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbt-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dbt Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -794,10 +812,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#whats-inside" class="md-nav__link">
+  <a href="#top-mutated-genes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's inside
+        Top Mutated Genes
       
     </span>
   </a>
@@ -805,10 +823,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#models-at-a-glance" class="md-nav__link">
+  <a href="#snv-class" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Models at a glance
+        SNV Class
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tumor-mutation-burden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tumor Mutation Burden
       
     </span>
   </a>
@@ -835,32 +864,70 @@
   
 
 
-<h1 id="dbt-documentation">dbt Documentation</h1>
-<p>The full dbt docs site includes the lineage DAG, column-level descriptions, and test results for all staging and mart models.</p>
-<p><a class="md-button md-button--primary" href="https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html"><strong>→ Open dbt Docs</strong></a></p>
+<h1 id="mutation-landscape">Mutation Landscape</h1>
+<p>The full interactive oncoplot and MAF summary are available in the analysis page.</p>
+<p><a class="md-button md-button--primary" href="https://stavgrossfeld.github.io/tcga-dbt/visualization/index.html"><strong>→ Open Analysis</strong></a></p>
 <hr />
-<h2 id="whats-inside">What's inside</h2>
+<h2 id="top-mutated-genes">Top Mutated Genes</h2>
+<table>
+<thead>
+<tr>
+<th>Gene</th>
+<th>Frequency</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TP53</td>
+<td>34%</td>
+<td>Tumor suppressor, basal subtype marker</td>
+</tr>
+<tr>
+<td>PIK3CA</td>
+<td>34%</td>
+<td>PI3K pathway oncogene, luminal subtype</td>
+</tr>
+<tr>
+<td>TTN</td>
+<td>17%</td>
+<td>Large structural gene, likely passenger</td>
+</tr>
+<tr>
+<td>CDH1</td>
+<td>13%</td>
+<td>E-cadherin, lobular subtype marker</td>
+</tr>
+<tr>
+<td>GATA3</td>
+<td>13%</td>
+<td>Transcription factor, luminal A marker</td>
+</tr>
+<tr>
+<td>MUC16</td>
+<td>10%</td>
+<td>Large gene, likely passenger</td>
+</tr>
+<tr>
+<td>KMT2C</td>
+<td>9%</td>
+<td>Chromatin remodeling</td>
+</tr>
+<tr>
+<td>MAP3K1</td>
+<td>8%</td>
+<td>MAPK pathway, luminal subtype</td>
+</tr>
+</tbody>
+</table>
+<h2 id="snv-class">SNV Class</h2>
+<p>C&gt;T transitions dominate — consistent with APOBEC mutagenesis and age-related deamination, both known signatures in BRCA.</p>
+<h2 id="tumor-mutation-burden">Tumor Mutation Burden</h2>
 <ul>
-<li><strong>Lineage graph</strong> — visual DAG from raw sources through staging to marts</li>
-<li><strong>Model descriptions</strong> — purpose and SQL for each model</li>
-<li><strong>Column descriptions</strong> — type, description, and tests for every column</li>
-<li><strong>Test results</strong> — not_null and unique constraint coverage</li>
+<li><strong>Median TMB:</strong> ~1 mut/Mb</li>
+<li><strong>Distribution:</strong> Log-normal, centered around 0.5–2 mut/Mb</li>
 </ul>
-<h2 id="models-at-a-glance">Models at a glance</h2>
-<div class="highlight"><pre><span></span><code>raw.clinical          raw.maf          raw.rna_expression
-      │                  │                      │
-      ▼                  ▼                      ▼
-staging.clinical   staging.mutations   staging.rna_expression
-      │                  │
-      └────────┬──────────┘
-               ▼
-           marts.tmb
-               │
-      ┌────────┘
-      │
-      ▼
-  marts.survival
-</code></pre></div>
+<p>BRCA is a low TMB cancer type. For comparison, melanoma median is ~10–15 mut/Mb.</p>
 
 
 
@@ -916,10 +983,10 @@ staging.clinical   staging.mutations   staging.rna_expression
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
