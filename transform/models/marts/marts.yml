@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: tmb
+    description: >
+      Tumor mutation burden per patient. Computed as the count of coding somatic
+      mutations divided by 38 Mb (standard WES capture size for TCGA).
+      Excludes Silent, Intron, UTR, RNA, IGR, and Flank variants.
+      Excludes variants flagged by GDC filters.
+    columns:
+      - name: patient_id
+        description: "TCGA patient barcode"
+      - name: coding_mutation_count
+        description: "Count of coding somatic mutations passing all filters"
+      - name: tmb
+        description: "Tumor mutation burden (coding_mutation_count / 38.0 Mb)"
+
+  - name: survival
+    description: >
+      Patient-level survival analysis table joining clinical data with TMB.
+      One row per patient. Intended as the primary mart for survival analysis,
+      Cox regression, and TMB stratification.
+    columns:
+      - name: patient_id
+        description: "TCGA patient barcode"
+      - name: overall_survival_days
+        description: "Days to death or last follow-up"
+      - name: vital_status
+        description: "Event indicator: 1 = deceased, 0 = censored"
+      - name: stage_group
+        description: "AJCC stage group (I, II, III, IV)"
+      - name: age_at_diagnosis_years
+        description: "Age at diagnosis in years"
+      - name: primary_diagnosis
+        description: "Histology description"
+      - name: had_prior_treatment
+        description: "True if patient had prior treatment"
+      - name: coding_mutation_count
+        description: "Coding somatic mutation count from marts.tmb"
+      - name: tmb
+        description: "Tumor mutation burden (mut/Mb)"
+      - name: tmb_group
+        description: "TMB category: low (<= 5), medium (5-20), high (> 20)"

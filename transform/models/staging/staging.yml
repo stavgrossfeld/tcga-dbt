@@ -1,0 +1,95 @@
+version: 2
+
+models:
+  - name: clinical
+    description: >
+      Cleaned and renamed clinical records for all 1,098 TCGA-BRCA patients.
+      Derived from the GDC clinical endpoint. Age converted from days to years,
+      vital status cast to boolean, and 'not reported' strings normalized to NULL.
+    columns:
+      - name: patient_id
+        description: "TCGA patient barcode (e.g. TCGA-A7-A0DC)"
+      - name: stage
+        description: "Raw AJCC pathologic stage string (e.g. Stage IIA)"
+      - name: stage_group
+        description: "Extracted stage roman numeral (I, II, III, IV). NULL for unknown/unstaged."
+      - name: age_at_diagnosis_years
+        description: "Patient age at diagnosis in years (derived from days / 365.25)"
+      - name: year_of_diagnosis
+        description: "Calendar year of diagnosis"
+      - name: is_deceased
+        description: "True if patient died during follow-up"
+      - name: overall_survival_days
+        description: "Days to death or last follow-up, whichever came first (coalesce of days_to_death and days_to_last_follow_up)"
+      - name: gender
+        description: "Patient gender"
+      - name: race
+        description: "Patient race. NULL where source value was 'not reported'."
+      - name: ethnicity
+        description: "Patient ethnicity. NULL where source value was 'not reported'."
+      - name: primary_diagnosis
+        description: "Primary diagnosis histology description"
+      - name: laterality
+        description: "Tumor laterality (Left/Right)"
+      - name: had_prior_malignancy
+        description: "True if patient had a prior malignancy"
+      - name: had_prior_treatment
+        description: "True if patient had prior treatment"
+
+  - name: mutations
+    description: >
+      Cleaned somatic mutations from TCGA-BRCA MAF files. 140 raw columns reduced
+      to the analytically relevant subset. VAF computed from allele counts.
+      Impact ranked numerically for aggregation.
+    columns:
+      - name: patient_id
+        description: "TCGA patient barcode extracted from first 12 chars of tumor sample barcode"
+      - name: sample_barcode
+        description: "Full tumor sample barcode (e.g. TCGA-BH-A18H-01A-11D-A12B-09)"
+      - name: gene_symbol
+        description: "HGNC gene symbol (e.g. TP53, PIK3CA)"
+      - name: entrez_gene_id
+        description: "NCBI Entrez gene ID"
+      - name: chromosome
+        description: "Chromosome of the mutation"
+      - name: start_pos
+        description: "Genomic start position (GRCh38)"
+      - name: end_pos
+        description: "Genomic end position (GRCh38)"
+      - name: variant_classification
+        description: "Mutation consequence (e.g. Missense_Mutation, Nonsense_Mutation, Silent)"
+      - name: variant_type
+        description: "Variant type: SNP, INS, DEL"
+      - name: ref_allele
+        description: "Reference allele"
+      - name: alt_allele
+        description: "Alternate allele (Tumor_Seq_Allele2)"
+      - name: tumor_depth
+        description: "Total read depth at the mutation site in tumor"
+      - name: tumor_alt_count
+        description: "Alternate allele read count in tumor"
+      - name: vaf
+        description: "Variant allele frequency (tumor_alt_count / tumor_depth)"
+      - name: impact
+        description: "VEP functional impact: HIGH, MODERATE, LOW, MODIFIER"
+      - name: impact_rank
+        description: "Numeric impact rank: HIGH=3, MODERATE=2, LOW=1, MODIFIER=0"
+      - name: gdc_filter
+        description: "GDC filter flag. NULL means the variant passed all filters."
+      - name: is_pass
+        description: "True if gdc_filter is NULL (passing variant call)"
+
+  - name: rna_expression
+    description: >
+      Long-format STAR-Counts RNA-seq expression data. One row per gene per sample.
+      Currently contains pilot data for 10 patients (primary tumor samples only).
+      Ensembl version suffix stripped from gene IDs for cleaner joins.
+    columns:
+      - name: gene_id
+        description: "Ensembl gene ID with version stripped (e.g. ENSG00000000003)"
+      - name: sample_barcode
+        description: "Full sample barcode including tissue and plate info"
+      - name: patient_id
+        description: "TCGA patient barcode extracted from first 12 chars of sample barcode"
+      - name: raw_count
+        description: "Unstranded read count from STAR alignment"

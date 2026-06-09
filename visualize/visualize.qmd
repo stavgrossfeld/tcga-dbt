@@ -41,6 +41,7 @@ library(ggplot2)
 library(survival)
 library(survminer)
 library(maftools)
+library(reactable)
 library(broom)
 library(forcats)
 
@@ -72,6 +73,37 @@ patient_summary <- patient_summary %>%
 
 maf <- read.maf(maf = maf_data)
 ```
+
+---
+
+## Data
+
+::: {.panel-tabset}
+
+### Clinical
+
+```{r}
+reactable(clinical %>% head(20),
+    searchable = TRUE, striped = TRUE, highlight = TRUE, bordered = TRUE)
+```
+
+### Mutations
+
+```{r}
+reactable(mutations %>% select(patient_id, gene_symbol, variant_classification,
+                                variant_type, impact, vaf, is_pass) %>% head(20),
+    searchable = TRUE, striped = TRUE, highlight = TRUE, bordered = TRUE)
+```
+
+### RNA Expression
+
+```{r}
+rna_expression <- dbGetQuery(con, "SELECT * FROM staging.rna_expression LIMIT 20") %>% tibble()
+reactable(rna_expression,
+    searchable = TRUE, striped = TRUE, highlight = TRUE, bordered = TRUE)
+```
+
+:::
 
 ---
 
