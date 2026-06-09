@@ -53,6 +53,7 @@ markdown_extensions:
       alternate_style: true
   - tables
   - attr_list
+  - md_in_html
 
 extra_javascript:
   - https://unpkg.com/mermaid@10/dist/mermaid.min.js

@@ -2,7 +2,7 @@
 
 The full interactive analysis including survival curves, oncoplot, multivariate Cox regression, and data previews is available as a standalone Quarto page.
 
-[**→ Open Analysis**](https://stavgrossfeld.github.io/tcga-dbt/visualization/index.html){ .md-button .md-button--primary }
+[**→ Open Analysis**](https://stavgrossfeld.github.io/tcga-dbt/visualization/index.html){ .md-button .md-button--primary target="_blank" }
 
 ---
 

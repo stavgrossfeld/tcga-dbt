@@ -23,37 +23,43 @@ An end-to-end analytical pipeline for breast cancer genomic data. Raw clinical, 
 ## Pipeline Overview
 
 ```mermaid
-flowchart TD
-    GDC[NCI GDC API] -->|TCGAbiolinks / R| RAW
+flowchart LR
+    GDC[/"NCI GDC API\nTCGAbiolinks · R"/]
 
-    subgraph RAW["DuckDB — raw schema"]
+    subgraph RAW[" "]
+        direction TB
+        RL["raw layer"]:::label
         R1[raw.clinical]
         R2[raw.maf]
         R3[raw.rna_expression]
     end
 
-    subgraph STG["DuckDB — staging schema  (dbt)"]
+    subgraph STG[" "]
+        direction TB
+        SL["staging layer · dbt"]:::label
         S1[staging.clinical]
         S2[staging.mutations]
         S3[staging.rna_expression]
     end
 
-    subgraph MRT["DuckDB — marts schema  (dbt)"]
+    subgraph MRT[" "]
+        direction TB
+        ML["marts layer · dbt"]:::label
         M1[marts.tmb]
         M2[marts.survival]
     end
 
-    VIZ[R / Quarto\nSurvival · Mutations · Cox]
+    VIZ[/"R · Quarto\nSurvival · Mutations · Cox"/]
 
+    GDC --> R1 & R2 & R3
     R1 --> S1
     R2 --> S2
     R3 --> S3
-    S1 --> M1
-    S2 --> M1
-    S1 --> M2
-    M1 --> M2
+    S1 & S2 --> M1
+    S1 & M1 --> M2
     M2 --> VIZ
 
+    classDef label fill:none,stroke:none,font-weight:bold,font-size:11px
     style GDC fill:#e8f0fe,stroke:#4a6cf7
     style RAW fill:#fff8e1,stroke:#f9a825
     style STG fill:#fce8ff,stroke:#9b4dca

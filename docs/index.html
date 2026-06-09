@@ -882,54 +882,60 @@
 <h1 id="tcga-brca-pipeline">TCGA-BRCA Pipeline</h1>
 <p>An end-to-end analytical pipeline for breast cancer genomic data. Raw clinical, somatic mutation, and RNA-seq data are downloaded from the NCI GDC, transformed with dbt, and analyzed in R.</p>
 <h2 id="quick-links">Quick Links</h2>
-<div class="grid cards" markdown>
-
--   :material-chart-line: **[Analysis](https://stavgrossfeld.github.io/tcga-dbt/visualization/index.html)**
-
-    Survival curves, oncoplot, multivariate Cox regression
-
--   :material-database: **[dbt Docs](https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html)**
-
-    Interactive data catalog and lineage DAG
-
--   :material-github: **[GitHub](https://github.com/stavgrossfeld/tcga-dbt)**
-
-    Source code
-
+<div class="grid cards">
+<ul>
+<li>
+<p>:material-chart-line: <strong><a href="https://stavgrossfeld.github.io/tcga-dbt/visualization/index.html">Analysis</a></strong></p>
+<p>Survival curves, oncoplot, multivariate Cox regression</p>
+</li>
+<li>
+<p>:material-database: <strong><a href="https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html">dbt Docs</a></strong></p>
+<p>Interactive data catalog and lineage DAG</p>
+</li>
+<li>
+<p>:material-github: <strong><a href="https://github.com/stavgrossfeld/tcga-dbt">GitHub</a></strong></p>
+<p>Source code</p>
+</li>
+</ul>
 </div>
-
 <h2 id="pipeline-overview">Pipeline Overview</h2>
-<pre class="mermaid"><code>flowchart TD
-    GDC[NCI GDC API] --&gt;|TCGAbiolinks / R| RAW
+<pre class="mermaid"><code>flowchart LR
+    GDC[/"NCI GDC API\nTCGAbiolinks · R"/]
 
-    subgraph RAW["DuckDB — raw schema"]
+    subgraph RAW[" "]
+        direction TB
+        RL["raw layer"]:::label
         R1[raw.clinical]
         R2[raw.maf]
         R3[raw.rna_expression]
     end
 
-    subgraph STG["DuckDB — staging schema  (dbt)"]
+    subgraph STG[" "]
+        direction TB
+        SL["staging layer · dbt"]:::label
         S1[staging.clinical]
         S2[staging.mutations]
         S3[staging.rna_expression]
     end
 
-    subgraph MRT["DuckDB — marts schema  (dbt)"]
+    subgraph MRT[" "]
+        direction TB
+        ML["marts layer · dbt"]:::label
         M1[marts.tmb]
         M2[marts.survival]
     end
 
-    VIZ[R / Quarto\nSurvival · Mutations · Cox]
+    VIZ[/"R · Quarto\nSurvival · Mutations · Cox"/]
 
+    GDC --&gt; R1 &amp; R2 &amp; R3
     R1 --&gt; S1
     R2 --&gt; S2
     R3 --&gt; S3
-    S1 --&gt; M1
-    S2 --&gt; M1
-    S1 --&gt; M2
-    M1 --&gt; M2
+    S1 &amp; S2 --&gt; M1
+    S1 &amp; M1 --&gt; M2
     M2 --&gt; VIZ
 
+    classDef label fill:none,stroke:none,font-weight:bold,font-size:11px
     style GDC fill:#e8f0fe,stroke:#4a6cf7
     style RAW fill:#fff8e1,stroke:#f9a825
     style STG fill:#fce8ff,stroke:#9b4dca
