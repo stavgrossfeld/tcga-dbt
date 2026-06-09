@@ -1,22 +1,22 @@
 # TCGA-BRCA Pipeline
 
-An end-to-end analytical pipeline for breast cancer genomic data. Raw clinical, somatic mutation, and RNA-seq data are downloaded from the NCI GDC, transformed with dbt, and analyzed in R.
+**Bioinformatics meets data engineering.** Clinical, somatic mutation, and RNA-seq data for 1,098 breast cancer patients — extracted from the NCI GDC, transformed with dbt on DuckDB, and analyzed in R.
 
 ## Quick Links
 
 <div class="grid cards" markdown>
 
--   :material-chart-line: **[Analysis](https://stavgrossfeld.github.io/tcga-dbt/visualization/index.html)**
+-   :material-chart-line: **[Analysis](https://stavgrossfeld.github.io/tcga-dbt/visualization/index.html){target=_blank}**
 
     Survival curves, oncoplot, multivariate Cox regression
 
--   :material-database: **[dbt Docs](https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html)**
+-   :material-database: **[dbt Docs](https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html){target=_blank}**
 
     Interactive data catalog and lineage DAG
 
--   :material-github: **[GitHub](https://github.com/stavgrossfeld/tcga-dbt)**
+-   :material-github: **[GitHub](https://github.com/stavgrossfeld/tcga-dbt){target=_blank}**
 
-    Source code
+    Source code and reproducibility instructions
 
 </div>
 
@@ -73,8 +73,8 @@ flowchart LR
 |---|---|
 | Stage vs survival | Log-rank p < 0.0001, Stage IV HR = 10.3x |
 | Top mutated genes | TP53 34%, PIK3CA 34%, CDH1 13% |
-| TMB univariate | Not significant (p = 0.46) |
-| TMB multivariate | Independent predictor (HR = 1.035, p = 0.013) |
+| TMB univariate | Not significant (p = 0.46) — consistent with BRCA's immunologically cold phenotype |
+| TMB multivariate | Independent predictor after adjusting for stage (HR = 1.035, p = 0.013) |
 
 ## Stack
 
