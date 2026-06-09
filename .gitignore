@@ -13,6 +13,8 @@ extraction/renv/library/
 
 # dbt
 transform/target/
+# but keep the built docs assets in docs/dbt-docs
+!docs/dbt-docs/
 transform/dbt_packages/
 transform/logs/
 transform/.venv/
