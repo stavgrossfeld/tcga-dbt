@@ -1,0 +1,7 @@
+tcga_brca:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('TCGA_DB_PATH', '../data/tcga_brca.duckdb') }}"
+      schema: main

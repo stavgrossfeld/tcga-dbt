@@ -1,7 +1,17 @@
+# data
 *.zip
 *.gz
 *.duckdb
+data/*.duckdb
+
+# R / GDC extraction
 gdc-client
 gdc-client*
-renv
 GDCdata/
+extraction/renv/library/
+*.rds
+
+# dbt
+transform/target/
+transform/dbt_packages/
+transform/logs/

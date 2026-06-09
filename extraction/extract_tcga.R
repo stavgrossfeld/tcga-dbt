@@ -6,7 +6,7 @@ library(tibble)
 library(SummarizedExperiment)
 
 
-DB_PATH    <- here::here("dbt_project", "tcga_brca.duckdb")
+DB_PATH    <- here::here("..", "data", "tcga_brca.duckdb")
 N_PATIENTS <- 10   # change this to scale up
 
 con <- dbConnect(duckdb(), dbdir = DB_PATH, read_only = FALSE)

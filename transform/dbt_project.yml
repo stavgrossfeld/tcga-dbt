@@ -1,0 +1,19 @@
+name: tcga_brca
+version: '1.0.0'
+config-version: 2
+
+profile: tcga_brca
+
+model-paths: ["models"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  tcga_brca:
+    staging:
+      +schema: staging
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table
