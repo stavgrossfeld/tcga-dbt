@@ -1,0 +1,7 @@
+*.zip
+*.gz
+*.duckdb
+gdc-client
+gdc-client*
+renv
+GDCdata/
