@@ -22,16 +22,43 @@ An end-to-end analytical pipeline for breast cancer genomic data. Raw clinical, 
 
 ## Pipeline Overview
 
-```
-NCI GDC API
-    ↓  TCGAbiolinks / R
-DuckDB  →  raw.clinical  ·  raw.maf  ·  raw.rna_expression
-    ↓  dbt
-       staging.clinical  ·  staging.mutations  ·  staging.rna_expression
-    ↓
-       marts.tmb  ·  marts.survival
-    ↓  R / Quarto
-Survival analysis  ·  Mutation landscape  ·  Cox regression
+```mermaid
+flowchart TD
+    GDC[NCI GDC API] -->|TCGAbiolinks / R| RAW
+
+    subgraph RAW["DuckDB — raw schema"]
+        R1[raw.clinical]
+        R2[raw.maf]
+        R3[raw.rna_expression]
+    end
+
+    subgraph STG["DuckDB — staging schema  (dbt)"]
+        S1[staging.clinical]
+        S2[staging.mutations]
+        S3[staging.rna_expression]
+    end
+
+    subgraph MRT["DuckDB — marts schema  (dbt)"]
+        M1[marts.tmb]
+        M2[marts.survival]
+    end
+
+    VIZ[R / Quarto\nSurvival · Mutations · Cox]
+
+    R1 --> S1
+    R2 --> S2
+    R3 --> S3
+    S1 --> M1
+    S2 --> M1
+    S1 --> M2
+    M1 --> M2
+    M2 --> VIZ
+
+    style GDC fill:#e8f0fe,stroke:#4a6cf7
+    style RAW fill:#fff8e1,stroke:#f9a825
+    style STG fill:#fce8ff,stroke:#9b4dca
+    style MRT fill:#e8fff0,stroke:#2e7d32
+    style VIZ fill:#fde8e8,stroke:#c62828
 ```
 
 ## Key Findings

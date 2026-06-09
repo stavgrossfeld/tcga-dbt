@@ -2,7 +2,7 @@
 
 The full dbt docs site includes the lineage DAG, column-level descriptions, and test results for all staging and mart models.
 
-[**→ Open dbt Docs**](https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html){ .md-button .md-button--primary }
+[**→ Open dbt Docs**](https://stavgrossfeld.github.io/tcga-dbt/dbt-docs/index.html){ .md-button .md-button--primary target="_blank" }
 
 ---
 
