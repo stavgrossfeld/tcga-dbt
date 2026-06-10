@@ -9,12 +9,20 @@ models:
     columns:
       - name: patient_id
         description: "TCGA patient barcode (e.g. TCGA-A7-A0DC)"
+        tests:
+          - not_null
+          - unique
       - name: stage
         description: "Raw AJCC pathologic stage string (e.g. Stage IIA)"
       - name: stage_group
         description: "Extracted stage roman numeral (I, II, III, IV). NULL for unknown/unstaged."
+        tests:
+          - accepted_values:
+              values: ['I', 'II', 'III', 'IV', 'X']
+              config:
+                where: "stage_group is not null"
       - name: age_at_diagnosis_years
-        description: "Patient age at diagnosis in years (derived from days / 365.25)"
+        description: "Patient age at diagnosis in years (derived from days / 365.25). NULL for ~16 patients with missing source data."
       - name: year_of_diagnosis
         description: "Calendar year of diagnosis"
       - name: is_deceased
@@ -44,10 +52,16 @@ models:
     columns:
       - name: patient_id
         description: "TCGA patient barcode extracted from first 12 chars of tumor sample barcode"
+        tests:
+          - not_null
       - name: sample_barcode
         description: "Full tumor sample barcode (e.g. TCGA-BH-A18H-01A-11D-A12B-09)"
+        tests:
+          - not_null
       - name: gene_symbol
         description: "HGNC gene symbol (e.g. TP53, PIK3CA)"
+        tests:
+          - not_null
       - name: entrez_gene_id
         description: "NCBI Entrez gene ID"
       - name: chromosome
@@ -58,8 +72,13 @@ models:
         description: "Genomic end position (GRCh38)"
       - name: variant_classification
         description: "Mutation consequence (e.g. Missense_Mutation, Nonsense_Mutation, Silent)"
+        tests:
+          - not_null
       - name: variant_type
         description: "Variant type: SNP, INS, DEL"
+        tests:
+          - accepted_values:
+              values: ['SNP', 'INS', 'DEL', 'DNP', 'TNP', 'ONP']
       - name: ref_allele
         description: "Reference allele"
       - name: alt_allele
@@ -72,6 +91,9 @@ models:
         description: "Variant allele frequency (tumor_alt_count / tumor_depth)"
       - name: impact
         description: "VEP functional impact: HIGH, MODERATE, LOW, MODIFIER"
+        tests:
+          - accepted_values:
+              values: ['HIGH', 'MODERATE', 'LOW', 'MODIFIER']
       - name: impact_rank
         description: "Numeric impact rank: HIGH=3, MODERATE=2, LOW=1, MODIFIER=0"
       - name: gdc_filter
@@ -87,9 +109,17 @@ models:
     columns:
       - name: gene_id
         description: "Ensembl gene ID with version stripped (e.g. ENSG00000000003)"
+        tests:
+          - not_null
       - name: sample_barcode
         description: "Full sample barcode including tissue and plate info"
+        tests:
+          - not_null
       - name: patient_id
         description: "TCGA patient barcode extracted from first 12 chars of sample barcode"
+        tests:
+          - not_null
       - name: raw_count
         description: "Unstranded read count from STAR alignment"
+        tests:
+          - not_null

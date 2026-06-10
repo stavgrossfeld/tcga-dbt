@@ -10,10 +10,17 @@ models:
     columns:
       - name: patient_id
         description: "TCGA patient barcode"
+        tests:
+          - not_null
+          - unique
       - name: coding_mutation_count
         description: "Count of coding somatic mutations passing all filters"
+        tests:
+          - not_null
       - name: tmb
         description: "Tumor mutation burden (coding_mutation_count / 38.0 Mb)"
+        tests:
+          - not_null
 
   - name: survival
     description: >
@@ -23,14 +30,25 @@ models:
     columns:
       - name: patient_id
         description: "TCGA patient barcode"
+        tests:
+          - not_null
+          - unique
       - name: overall_survival_days
         description: "Days to death or last follow-up"
       - name: vital_status
         description: "Event indicator: 1 = deceased, 0 = censored"
+        tests:
+          - accepted_values:
+              values: [0, 1]
       - name: stage_group
         description: "AJCC stage group (I, II, III, IV)"
+        tests:
+          - accepted_values:
+              values: ['I', 'II', 'III', 'IV', 'X']
+              config:
+                where: "stage_group is not null"
       - name: age_at_diagnosis_years
-        description: "Age at diagnosis in years"
+        description: "Age at diagnosis in years. NULL for ~15 patients with missing source data."
       - name: primary_diagnosis
         description: "Histology description"
       - name: had_prior_treatment
@@ -40,4 +58,9 @@ models:
       - name: tmb
         description: "Tumor mutation burden (mut/Mb)"
       - name: tmb_group
-        description: "TMB category: low (<= 5), medium (5-20), high (> 20)"
+        description: "TMB tertile: low / medium / high"
+        tests:
+          - accepted_values:
+              values: ['low', 'medium', 'high']
+              config:
+                where: "tmb_group is not null"
