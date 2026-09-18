@@ -1,0 +1,221 @@
+title: Survival Analysis
+theme: neon
+source: tcga
+
+queries:
+  stage_counts:
+    notes: Patient counts and average survival by AJCC stage (excluding unknown stage X)
+    sql: |
+      SELECT
+        stage_group,
+        COUNT(*) AS n_patients,
+        SUM(vital_status) AS n_deceased,
+        ROUND(AVG(overall_survival_days)) AS avg_survival_days,
+        ROUND(AVG(CASE WHEN vital_status = 0 THEN overall_survival_days END)) AS avg_days_alive,
+        ROUND(AVG(CASE WHEN vital_status = 1 THEN overall_survival_days END)) AS avg_days_deceased
+      FROM marts.survival
+      WHERE stage_group NOT IN ('X') AND stage_group IS NOT NULL
+      GROUP BY stage_group
+      ORDER BY stage_group
+
+  tmb_histogram:
+    notes: TMB distribution binned on log10 scale (log10 bin width 0.125)
+    sql: |
+      SELECT
+        ROUND(FLOOR(LOG10(NULLIF(tmb, 0)) * 8) / 8, 4) AS log10_tmb_bin,
+        COUNT(*) AS n
+      FROM marts.survival
+      WHERE tmb IS NOT NULL AND tmb > 0
+      GROUP BY 1
+      ORDER BY 1
+
+  tmb_group_survival:
+    notes: Average survival days by TMB tertile group
+    sql: |
+      SELECT
+        tmb_group,
+        COUNT(*) AS n_patients,
+        ROUND(AVG(overall_survival_days)) AS avg_survival_days,
+        SUM(vital_status) AS n_deceased
+      FROM marts.survival
+      WHERE tmb_group IS NOT NULL
+      GROUP BY tmb_group
+      ORDER BY
+        CASE tmb_group WHEN 'low' THEN 1 WHEN 'medium' THEN 2 WHEN 'high' THEN 3 END
+
+  stage_survival_summary:
+    notes: Deceased rate (%) and avg survival days for deceased patients, by stage
+    sql: |
+      SELECT
+        stage_group,
+        ROUND(SUM(vital_status) * 100.0 / COUNT(*), 1) AS pct_deceased,
+        ROUND(AVG(CASE WHEN vital_status = 1 THEN overall_survival_days END)) AS avg_days_to_death
+      FROM marts.survival
+      WHERE stage_group NOT IN ('X') AND stage_group IS NOT NULL
+      GROUP BY stage_group
+      ORDER BY stage_group
+
+  age_survival:
+    notes: Binned age at diagnosis vs average overall survival
+    sql: |
+      SELECT
+        CAST(FLOOR(age_at_diagnosis_years / 5) * 5 AS INTEGER) AS age_bin,
+        COUNT(*) AS n_patients,
+        ROUND(AVG(overall_survival_days)) AS avg_survival_days,
+        ROUND(SUM(vital_status) * 100.0 / COUNT(*), 1) AS pct_deceased
+      FROM marts.survival
+      WHERE age_at_diagnosis_years IS NOT NULL
+      GROUP BY 1
+      ORDER BY 1
+
+charts:
+  stage_patient_counts:
+    title: Patients by Stage
+    notes: How many patients fall into each AJCC pathologic stage
+    type: bar
+    query: stage_counts
+    x: stage_group
+    y: n_patients
+    color: stage_group
+    style:
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#350a68"
+            - "#9b2874"
+            - "#ef7d31"
+            - "#fcffa4"
+
+  stage_mortality:
+    title: Mortality Rate by Stage (%)
+    notes: Percentage of patients deceased at time of last follow-up, by stage
+    type: bar
+    query: stage_survival_summary
+    x: stage_group
+    y: pct_deceased
+    color: stage_group
+    style:
+      number_format: number_full
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#350a68"
+            - "#9b2874"
+            - "#ef7d31"
+            - "#fcffa4"
+
+  stage_avg_survival:
+    title: Avg Survival Days by Stage
+    notes: Mean overall survival in days for all patients, by AJCC stage
+    type: bar
+    query: stage_counts
+    x: stage_group
+    y: avg_survival_days
+    color: stage_group
+    style:
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#350a68"
+            - "#9b2874"
+            - "#ef7d31"
+            - "#fcffa4"
+
+  tmb_dist:
+    title: TMB Distribution (log₁₀ scale)
+    notes: Tumor mutation burden histogram; x-axis is log10(TMB), showing the log-normal shape typical of breast cancer
+    type: bar
+    query: tmb_histogram
+    x: log10_tmb_bin
+    y: n
+    color: log10_tmb_bin
+    style:
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#0c0726"
+            - "#1e0848"
+            - "#350a68"
+            - "#4f0d6f"
+            - "#691474"
+            - "#821d77"
+            - "#9b2874"
+            - "#b3336e"
+            - "#c84163"
+            - "#d95353"
+            - "#e66843"
+            - "#ef7d31"
+            - "#f49224"
+            - "#f6a91c"
+            - "#f7c01a"
+            - "#f6d621"
+            - "#f3eb2f"
+            - "#effa3e"
+            - "#f8fc6c"
+            - "#fcffa4"
+
+  tmb_group_avg:
+    title: Avg Survival Days by TMB Group
+    notes: Mean overall survival by TMB tertile; groups are similarly distributed, consistent with non-significant KM result
+    type: bar
+    query: tmb_group_survival
+    x: tmb_group
+    y: avg_survival_days
+    color: tmb_group
+    style:
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#350a68"
+            - "#d95353"
+            - "#fcffa4"
+
+  age_dist:
+    title: Avg Survival by Age at Diagnosis
+    notes: Mean overall survival by 5-year age bin at diagnosis
+    type: bar
+    query: age_survival
+    x: age_bin
+    y: avg_survival_days
+    color: age_bin
+    style:
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#0c0726"
+            - "#1e0848"
+            - "#350a68"
+            - "#4f0d6f"
+            - "#691474"
+            - "#821d77"
+            - "#9b2874"
+            - "#b3336e"
+            - "#c84163"
+            - "#d95353"
+            - "#e66843"
+            - "#ef7d31"
+            - "#f49224"
+            - "#f6a91c"
+            - "#f7c01a"
+            - "#f6d621"
+            - "#f3eb2f"
+            - "#effa3e"
+            - "#f8fc6c"
+            - "#fcffa4"
+
+rows:
+  - cols: [stage_patient_counts, stage_mortality, stage_avg_survival]
+  - cols: [tmb_dist, tmb_group_avg]
+  - age_dist

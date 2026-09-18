@@ -1,0 +1,159 @@
+title: Mutation Landscape
+theme: neon
+source: tcga
+
+queries:
+  top_genes:
+    notes: Top 20 genes by number of patients with a passing somatic mutation
+    sql: |
+      SELECT
+        gene_symbol,
+        COUNT(DISTINCT patient_id) AS n_patients,
+        ROUND(COUNT(DISTINCT patient_id) * 100.0 / 1098, 1) AS pct_patients
+      FROM staging.mutations
+      WHERE is_pass = true
+      GROUP BY gene_symbol
+      ORDER BY n_patients DESC
+      LIMIT 20
+
+  variant_class:
+    notes: Count of passing mutations by variant classification
+    sql: |
+      SELECT
+        variant_classification,
+        COUNT(*) AS n
+      FROM staging.mutations
+      WHERE is_pass = true
+      GROUP BY variant_classification
+      ORDER BY n DESC
+
+  variant_type:
+    notes: Count of passing mutations by variant type (SNP/INS/DEL)
+    sql: |
+      SELECT
+        variant_type,
+        COUNT(*) AS n
+      FROM staging.mutations
+      WHERE is_pass = true
+      GROUP BY variant_type
+      ORDER BY n DESC
+
+  impact_dist:
+    notes: Count of passing mutations by predicted functional impact
+    sql: |
+      SELECT
+        impact,
+        COUNT(*) AS n
+      FROM staging.mutations
+      WHERE is_pass = true AND impact IS NOT NULL
+      GROUP BY impact
+      ORDER BY n DESC
+
+charts:
+  top_genes_bar:
+    title: Top 20 Most Mutated Genes
+    notes: Percentage of patients (n=1098) carrying a passing somatic mutation in each gene
+    type: bar
+    query: top_genes
+    x: gene_symbol
+    y: pct_patients
+    color: gene_symbol
+    style:
+      number_format: number_full
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#0c0726"
+            - "#1e0848"
+            - "#350a68"
+            - "#4f0d6f"
+            - "#691474"
+            - "#821d77"
+            - "#9b2874"
+            - "#b3336e"
+            - "#c84163"
+            - "#d95353"
+            - "#e66843"
+            - "#ef7d31"
+            - "#f49224"
+            - "#f6a91c"
+            - "#f7c01a"
+            - "#f6d621"
+            - "#f3eb2f"
+            - "#effa3e"
+            - "#f8fc6c"
+            - "#fcffa4"
+
+  variant_class_bar:
+    title: Mutations by Variant Classification
+    notes: Distribution of mutation types across all passing somatic variants
+    type: bar
+    query: variant_class
+    x: variant_classification
+    y: n
+    color: variant_classification
+    style:
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#0c0726"
+            - "#350a68"
+            - "#691474"
+            - "#9b2874"
+            - "#c84163"
+            - "#e66843"
+            - "#f49224"
+            - "#f7c01a"
+            - "#f3eb2f"
+            - "#fcffa4"
+            - "#0c0726"
+            - "#350a68"
+            - "#691474"
+            - "#9b2874"
+            - "#c84163"
+            - "#e66843"
+            - "#f49224"
+            - "#f7c01a"
+
+  variant_type_pie:
+    title: SNP / Insertion / Deletion Split
+    notes: Proportion of passing mutations that are SNPs, insertions, or deletions
+    type: pie
+    query: variant_type
+    theta: n
+    color: variant_type
+    style:
+      color:
+        categorical:
+          palette:
+            - "#691474"
+            - "#d95353"
+            - "#f6d621"
+
+  impact_bar:
+    title: Mutations by Predicted Impact
+    notes: Count of passing mutations by HIGH/MODERATE/LOW/MODIFIER impact
+    type: bar
+    query: impact_dist
+    x: impact
+    y: n
+    color: impact
+    style:
+      legend:
+        visible: false
+      color:
+        categorical:
+          palette:
+            - "#350a68"
+            - "#c84163"
+            - "#f49224"
+            - "#fcffa4"
+
+rows:
+  - top_genes_bar
+  - cols: [variant_class_bar, variant_type_pie]
+  - impact_bar
